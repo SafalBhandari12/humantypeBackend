@@ -1,7 +1,7 @@
 version: "3.9"
 
 services:
-  app:
+  typeracer-backend:
     build: .
     ports:
       - "3000:3000"
@@ -11,15 +11,44 @@ services:
       - NODE_ENV=development
       - REDIS_URL=redis://redis:6379
     depends_on:
-      - redis
+      redis:
+        condition: service_healthy
     restart: unless-stopped
+    networks:
+      - typeracer-network
+    volumes:
+      - ./src:/app/src
+      - ./scripts:/app/scripts
+
   redis:
     image: "redis:7-alpine"
     ports:
       - "6379:6379"
-    command: ["redis-server", "--appendonly", "yes"]
+    command:
+      [
+        "redis-server",
+        "--appendonly",
+        "yes",
+        "--maxmemory",
+        "256mb",
+        "--maxmemory-policy",
+        "allkeys-lru",
+      ]
     restart: unless-stopped
     volumes:
       - redis-data:/data
+    networks:
+      - typeracer-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+      start_period: 10s
+
 volumes:
   redis-data:
+
+networks:
+  typeracer-network:
+    driver: bridge

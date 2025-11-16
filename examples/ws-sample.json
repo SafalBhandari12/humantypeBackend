@@ -1,0 +1,74 @@
+{
+  "join_client_to_server": {
+    "t": "j",
+    "i": "m1",
+    "r": "123",
+    "u": "u456",
+    "s": 1,
+    "d": { "n": "alice" }
+  },
+  "join_ack_server_to_client": {
+    "t": "ja",
+    "i": "m1",
+    "r": "123",
+    "u": "u456",
+    "d": { "ok": true, "state": "waiting", "players_count": 3 },
+    "ts": 1699200000000
+  },
+  "progress_client_to_server": {
+    "t": "p",
+    "r": "123",
+    "u": "u456",
+    "s": 42,
+    "d": { "idx": 30, "chars": 120, "errors": 3, "elapsed_ms": 12000 }
+  },
+  "progress_broadcast_server_to_clients": {
+    "t": "pb",
+    "r": "123",
+    "ts": 1699200012000,
+    "d": {
+      "u": "u456",
+      "idx": 30,
+      "chars": 120,
+      "errors": 3,
+      "elapsed_ms": 12000
+    }
+  },
+  "finished_client_to_server": {
+    "t": "f",
+    "r": "123",
+    "u": "u456",
+    "s": 100,
+    "d": { "time_ms": 31000, "errors": 4 }
+  },
+  "finished_broadcast_server_to_clients": {
+    "t": "fb",
+    "r": "123",
+    "ts": 1699200031000,
+    "d": { "u": "u456", "place": 2, "time_ms": 31000 }
+  },
+  "state_broadcast_server_to_clients": {
+    "t": "st",
+    "r": "123",
+    "ts": 1699200000000,
+    "d": {
+      "state": "starting-countdown",
+      "start_ts": 1699200003000,
+      "countdown_ms": 3000,
+      "players": [
+        { "u": "u123", "name": "bob" },
+        { "u": "u456", "name": "alice" }
+      ]
+    }
+  },
+  "heartbeat": {
+    "t": "h",
+    "ts": 1699200000000
+  },
+  "error": {
+    "t": "e",
+    "i": "m1",
+    "d": { "code": "INVALID_RACE", "message": "Race not found" },
+    "ts": 1699200000000
+  }
+}

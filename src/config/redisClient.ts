@@ -1,3 +1,6 @@
+// This file is deprecated - use src/services/redisService.ts instead
+// Keeping for backwards compatibility
+
 import { createClient } from "redis";
 import logger from "../utils/logger.js";
 
@@ -6,16 +9,14 @@ const redis = createClient({
 });
 
 redis.on("error", (err) => {
-  logger.error("Redis Client Error", err);
+  logger.error("Redis Client Error: " + String(err));
 });
 
 redis.on("connect", () => {
-  logger.info("Connected to Redis");
+  logger.info("Connected to Redis (legacy client)");
 });
 
-await redis.connect();
-
-await redis.hSet("player:demo", { name: "testUser", wpm: 75, accuracy: 90 });
-logger.info("Demo player data set in Redis");
+// Don't auto-connect here anymore - let the service handle it
+// await redis.connect();
 
 export default redis;
