@@ -19,7 +19,9 @@
     "express": "^5.1.0",
     "pino": "^10.1.0",
     "redis": "^5.9.0",
-    "ws": "^8.18.3"
+    "uuidv4": "^6.2.13",
+    "ws": "^8.18.3",
+    "zod": "^4.1.12"
   },
   "devDependencies": {
     "@types/express": "^5.0.5",

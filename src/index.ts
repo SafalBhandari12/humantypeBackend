@@ -4,12 +4,19 @@ import { WebSocketServer } from "ws";
 import dotenv from "dotenv";
 import logger from "./utils/logger.js";
 import redis from "./config/redisClient.js";
+import router from "./routes/index.js";
 
 dotenv.config();
 
 const app = express();
 const server = createServer(app);
+
+app.use(express.json());
+app.use("/api", router);
+
 const wss = new WebSocketServer({ server });
+
+
 
 wss.on("connection", (ws) => {
   logger.info("New WebSocket connection established");
